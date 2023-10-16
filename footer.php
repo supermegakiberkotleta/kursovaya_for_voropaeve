@@ -1,3 +1,4 @@
+
 </div> <!-- container-fluid -->
 </div>
 <!-- End Page-content -->
@@ -28,11 +29,12 @@
 
 
 <!-- jQuery  -->
-<script src="../assets/js/jquery.min.js"></script>
+
 <script src="../assets/js/bootstrap.bundle.min.js"></script>
 <script src="../assets/js/metismenu.min.js"></script>
 <script src="../assets/js/waves.js"></script>
 <script src="../assets/js/simplebar.min.js"></script>
+
 
 <!-- Morris Js-->
 <script src="../plugins/morris-js/morris.min.js"></script>

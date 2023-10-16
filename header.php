@@ -1,3 +1,4 @@
+<?php require_once  $_SERVER['DOCUMENT_ROOT'] . '/functions.php';?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,6 +21,9 @@
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="../assets/css/theme.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="../assets/js/jquery.min.js"></script>
+
 
 </head>
 
@@ -104,7 +108,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-flex align-items-center justify-content-between">
-                            <h4 class="mb-0 font-size-18">Консоль</h4>
+                            <h4 class="mb-0 font-size-18">MyBooks ;)</h4>
                         </div>
                     </div>
                 </div>

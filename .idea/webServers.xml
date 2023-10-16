@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="20fc7687-c679-464b-929e-6752ff7eb9d3" name="sotbit.com ">
+        <fileTransfer rootFolder="/home/v.medvedev" accessType="SFTP" host="sotbit.com" port="22" sshConfigId="66591b36-751a-4d3b-9ff8-b018eefa8d55" sshConfig="v.medvedev@sotbit.com:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
