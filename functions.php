@@ -1,5 +1,5 @@
 <?php
-
+require 'admin/config.php';
 function get_header(){
     return require 'header.php';
 }
