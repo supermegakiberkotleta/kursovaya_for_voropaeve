@@ -111,6 +111,45 @@
             </div>
         </div>
     </div>
-
+    <div class="modal fade" id="EditElement" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form  method="POST" id="EditForm" data-table-name="Books">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Редактировать книгу</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="addNameInput">Название книги</label>
+                            <input type="text" class="form-control" id="editNameInput" name="editNameInput" placeholder="Введите название книги">
+                        </div>
+                        <div class="form-group">
+                            <label for="addAuthorInput">Автор</label>
+                            <input type="text" class="form-control" id="editAuthorInput"  name="editAuthorInput" placeholder="Введите автора книги">
+                        </div>
+                        <div class="form-group">
+                            <label for="addGenreInput">Жанр</label>
+                            <input type="text" class="form-control" id="editGenreInput" name="editGenreInput" placeholder="Введите жанр книги">
+                        </div>
+                        <div class="form-group">
+                            <label for="addPublicationYearInput">Год публикации</label>
+                            <input type="text" class="form-control" id="editPublicationYearInput" name="editPublicationYearInput" placeholder="Введите год публикации">
+                        </div>
+                        <div class="form-group">
+                            <label for="addCountInput">Количество</label>
+                            <input type="text" class="form-control" id="editCountInput" name="editCountInput" placeholder="Введите количество книг">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-dismiss="modal">Отмена</button>
+                        <button type="submit" class="btn btn-success">Сохранить изменения</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 <?php get_footer();?>

@@ -60,6 +60,57 @@ $(document).ready(function () {
             }
         });
     });
+    $('.books_table').on('click','.edit',function (event) {
+
+        let currenElement = $(this).attr('data-element-id');
+        let editElement = $(this).parent().parent();
+        let editInput = $('#EditForm input.form-control')
+
+        editInput.each(function(index) {
+            let inputValue = editElement.find('td:eq(' + index + ')').text();
+            $(this).val(inputValue);
+        });
+
+        $('#EditElement button[type="submit"]').attr('data-element-id', currenElement)
+        $('#EditElement').modal('show')
+    })
+    $('#EditForm').submit(function (event) {
+        event.preventDefault();
+
+        let currenTable = $(this).attr('data-table-name');
+        let currenElement = $(this).find($('button[type="submit"]')).attr('data-element-id')
+
+        // Отправляем форму на сервер через AJAX-запрос при отправке формы
+        $.ajax({
+            url: '../php/' + currenTable.toLowerCase() + '/edit.php', // URL для отправки данных
+            method: 'POST', // HTTP-метод (POST)
+            data: {
+                input:$(this).serialize(),
+                elem_id: currenElement
+            },
+            dataType: 'json', // Ожидаемый тип данных в ответе (JSON)
+            success: function (response) {
+                // Обработка успешного ответа от сервера
+                if (response.status === 'success') {
+                    console.log(response.message)
+                    // Если статус "success", скрываем модальное окно добавления и отображаем модальное окно успешной операции
+                    $('#EditElement').modal('hide');
+                    //$('#getSuccesModal').modal('show');
+                    $('.books_table').html(tableRender(currenTable)); // Обновляем таблицу
+                } else {
+                    // В противном случае, скрываем модальное окно добавления и отображаем модальное окно ошибки
+                    //$('#addNewElement').modal('hide');
+                    //$('#getDangeresModal').modal('show');
+                }
+            },
+            error: function () {
+                // Обработка ошибки AJAX-запроса
+                // Скрываем модальное окно добавления и отображаем модальное окно ошибки
+                //$('#addNewElement').modal('hide');
+                //$('#getDangeresModal').modal('show');
+            }
+        });
+    });
 });
 
 function tableRender(currentTable) {
