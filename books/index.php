@@ -26,7 +26,7 @@
                         </thead>
 
 
-                        <tbody class="books_table">
+                        <tbody class="books_table" data-table-name="Books">
 
                         </tbody>
                     </table>
@@ -39,7 +39,7 @@
     <div class="modal fade" id="addNewElement" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <form  method="POST" id="AddBooksForm">
+                <form  method="POST" id="AddForm" data-table-name="Books">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">Добавить новую книгу</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -111,32 +111,6 @@
             </div>
         </div>
     </div>
-<script>
-        $('#AddBooksForm').submit(function(event) {
-            event.preventDefault();
 
-            $.ajax({
-                url: '../php/books/add.php',
-                method: 'POST',
-                data: $(this).serialize(),
-                dataType: 'json',
-                success: function(response) {
-                    if (response.status === 'success') {
 
-                        $('#addNewElement').modal('hide')
-                        $('#getSuccesModal').modal('show')
-                        tableRender('Books')
-                    } else {
-                        $('#addNewElement').modal('hide')
-                        $('#getDangeresModal').modal('show')
-                    }
-                },
-                error: function() {
-                    // Обработка ошибки AJAX-запроса
-                    $('#addNewElement').modal('hide')
-                    $('#getDangeresModal').modal('show')
-                }
-            });
-        });
-</script>
 <?php get_footer();?>
