@@ -27,19 +27,7 @@
 
 
                         <tbody class="books_table">
-                            <?php foreach (getDataBooksTable() as $items):?>
-                                <tr data-element-id="<?=$items['book_id'];?>">
-                                    <td><?=$items['title'];?></td>
-                                    <td><?=$items['author'];?></td>
-                                    <td><?=$items['genre'];?></td>
-                                    <td><?=$items['publication_year'];?></td>
-                                    <td><?=$items['copies_available'];?></td>
-                                    <td>
-                                        <button class="btn btn-light btn-sm" data-element-id="<?=$items['book_id'];?>">Редактировать</button>
-                                        <button class="btn btn-danger btn-sm" data-element-id="<?=$items['book_id'];?>">Удалить</button>
-                                    </td>
-                                </tr>
-                            <?php endforeach;?>
+
                         </tbody>
                     </table>
 
@@ -60,7 +48,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="addNameInput">Название киниги</label>
+                            <label for="addNameInput">Название книги</label>
                             <input type="text" class="form-control" id="addNameInput" name="addNameInput" placeholder="Введите название книги">
                         </div>
                         <div class="form-group">
@@ -137,6 +125,7 @@
 
                         $('#addNewElement').modal('hide')
                         $('#getSuccesModal').modal('show')
+                        tableRender('Books')
                     } else {
                         $('#addNewElement').modal('hide')
                         $('#getDangeresModal').modal('show')

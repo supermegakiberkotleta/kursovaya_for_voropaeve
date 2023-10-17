@@ -23,7 +23,7 @@
     <link href="../assets/css/theme.min.css" rel="stylesheet" type="text/css" />
 
     <script src="../assets/js/jquery.min.js"></script>
-
+    <script src="../assets/js/render.js"></script>
 
 </head>
 

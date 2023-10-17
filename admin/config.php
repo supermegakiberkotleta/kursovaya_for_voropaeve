@@ -17,10 +17,10 @@ function connectToDatabase() {
 }
 
 // Функция для извлечения данных из таблицы
-function getDataBooksTable() {
+function getDataTable($tableName) {
     $conn = connectToDatabase();
 
-    $sql = "SELECT * FROM Books";
+    $sql = "SELECT * FROM {$tableName}";
     $result = $conn->query($sql);
 
     if ($result === false) {
@@ -33,6 +33,7 @@ function getDataBooksTable() {
     }
 
     $conn->close();
+    $data = array_reverse($data);
 
     return $data;
 }
