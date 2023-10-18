@@ -49,22 +49,22 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="addNameInput">Название книги</label>
-                            <input type="text" class="form-control" id="addNameInput" name="addNameInput" placeholder="Введите название книги">
+                            <input type="text" class="form-control text" id="addNameInput" name="addNameInput" placeholder="Введите название книги">
                         </div>
                         <div class="form-group">
                             <label for="addAuthorInput">Автор</label>
-                            <input type="text" class="form-control" id="addAuthorInput"  name="addAuthorInput" placeholder="Введите автора книги">
+                            <input type="text" class="form-control text" id="addAuthorInput"  name="addAuthorInput" placeholder="Введите автора книги">
                         </div>
                         <div class="form-group">
                             <label for="addGenreInput">Жанр</label>
-                            <input type="text" class="form-control" id="addGenreInput" name="addGenreInput" placeholder="Введите жанр книги">
+                            <input type="text" class="form-control text" id="addGenreInput" name="addGenreInput" placeholder="Введите жанр книги">
                         </div>
                         <div class="form-group">
                             <label for="addPublicationYearInput">Год публикации</label>
-                            <input type="text" class="form-control" id="addPublicationYearInput" name="addPublicationYearInput" placeholder="Введите год публикации">
+                            <input type="text" class="form-control year" id="addPublicationYearInput" name="addPublicationYearInput" placeholder="Введите год публикации">
                         </div>
                         <div class="form-group">
-                            <label for="addCountInput">Количество</label>
+                            <label for="addCountInput number">Количество</label>
                             <input type="text" class="form-control" id="addCountInput" name="addCountInput" placeholder="Введите количество книг">
                         </div>
                     </div>
