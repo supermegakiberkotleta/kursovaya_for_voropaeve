@@ -79,13 +79,17 @@ $(document).ready(function () {
 
         let currenTable = $(this).attr('data-table-name');
         let currenElement = $(this).find($('button[type="submit"]')).attr('data-element-id')
+        let formData = {};
+        $("#EditForm :input").each(function() {
+            formData[this.name] = $(this).val();
+        });
 
         // Отправляем форму на сервер через AJAX-запрос при отправке формы
         $.ajax({
             url: '../php/' + currenTable.toLowerCase() + '/edit.php', // URL для отправки данных
             method: 'POST', // HTTP-метод (POST)
             data: {
-                input:$(this).serialize(),
+                input:JSON.stringify(formData),
                 elem_id: currenElement
             },
             dataType: 'json', // Ожидаемый тип данных в ответе (JSON)

@@ -2,41 +2,64 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/functions.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $currenElement = $_POST['elem_id']; // Получаем ID элемента
+// Подключение к базе данных
+$conn = connectToDatabase();
 
-    // Получаем данные из формы
-    $inputData = $_POST['input'];
-
-    parse_str($inputData, $formData); // Преобразуем сериализованные данные в ассоциативный массив
-
-    // Установите соединение с базой данных
-    $conn = connectToDatabase();
-
-    // Создайте SQL-запрос на обновление данных
-    $updateQuery = "UPDATE Books SET ";
-    foreach ($formData as $key => $value) {
-        $updateQuery .= "$key = '$value', ";
-    }
-    // Удалите последнюю запятую и пробел
-    $updateQuery = rtrim($updateQuery, ', ');
-
-    $updateQuery .= " WHERE book_id = $currenElement";
-
-    $response = array();
-
-    if ($conn->query($updateQuery) === true) {
-        $response['status'] = 'success';
-        $response['message'] = 'Данные успешно обновлены в базе данных.';
-    } else {
-        $response['status'] = 'error';
-        $response['message'] = 'Ошибка при обновлении данных: ' . $conn->error;
-    }
-
-    $conn->close();
-
-    // Возвращаем JSON-ответ
-    header('Content-Type: application/json');
+// Проверка наличия соединения с базой данных
+if (!$conn) {
+    $response = array(
+        'status' => 'error',
+        'message' => 'Не удалось подключиться к базе данных'
+    );
     echo json_encode($response);
+    exit;
 }
 
+// Проверка наличия обязательных данных в запросе
+if (isset($_POST['input']) && isset($_POST['elem_id'])) {
+    // Распаковываем данные из JSON
+    $formData = json_decode($_POST['input'], true);
+    $elemId = $_POST['elem_id'];
+
+    // Здесь вы можете добавить дополнительные проверки и валидацию данных из $formData
+
+    // SQL-запрос для редактирования элемента с использованием подготовленных запросов
+    $sql = "UPDATE Books SET title = ?, author = ?, genre = ?, publication_year = ?, copies_available = ? WHERE book_id = ?";
+
+    // Подготовка SQL-запроса
+    $stmt = $conn->prepare($sql);
+
+    // Привязываем значения к параметрам
+    $stmt->bind_param('ssssii', $formData['editNameInput'], $formData['editAuthorInput'], $formData['editGenreInput'], $formData['editPublicationYearInput'], $formData['editCountInput'], $elemId);
+
+    // Выполняем SQL-запрос
+    if ($stmt->execute()) {
+        // Успешное редактирование
+        $response = array(
+            'status' => 'success',
+            'message' => 'Элемент успешно отредактирован'
+        );
+    } else {
+        // Ошибка редактирования
+        $response = array(
+            'status' => 'error',
+            'message' => 'Ошибка при редактировании элемента: ' . $stmt->error
+        );
+    }
+
+    // Закрытие подготовленного запроса
+    $stmt->close();
+
+    // Закрытие соединения с базой данных
+    $conn->close();
+
+    echo json_encode($response);
+} else {
+    // Если не были переданы обязательные данные
+    $response = array(
+        'status' => 'error',
+        'message' => 'Отсутствуют обязательные данные в запросе'
+    );
+    echo json_encode($response);
+}
+?>

@@ -19,19 +19,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Увеличиваем book_id на 1
     $newId = $lastId + 1;
 
-    // Вставляем данные в таблицу
-    $insertQuery = "INSERT INTO Books (book_id, title, author, genre, publication_year, copies_available) VALUES ($newId, '$name', '$author', '$genre', '$publicationYear', $count)";
+    // SQL-запрос с использованием подготовленных запросов
+    $insertQuery = "INSERT INTO Books (book_id, title, author, genre, publication_year, copies_available) VALUES (?, ?, ?, ?, ?, ?)";
+
+    $stmt = $conn->prepare($insertQuery);
+    $stmt->bind_param('isssii', $newId, $name, $author, $genre, $publicationYear, $count);
 
     $response = array();
 
-    if ($conn->query($insertQuery) === true) {
+    if ($stmt->execute()) {
         $response['status'] = 'success';
         $response['message'] = 'Данные успешно добавлены в базу данных.';
     } else {
         $response['status'] = 'error';
-        $response['message'] = 'Ошибка при добавлении данных: ' . $conn->error;
+        $response['message'] = 'Ошибка при добавлении данных: ' . $stmt->error;
     }
 
+    $stmt->close();
     $conn->close();
 
     // Возвращаем JSON-ответ
