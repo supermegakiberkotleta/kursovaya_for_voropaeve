@@ -1,7 +1,38 @@
 $(document).ready(function () {
     // Этот код будет выполняться после полной загрузки страницы
-    $('.books_table').html(tableRender($('.books_table').attr('data-table-name')));
+    $('.books_table').html(tableRender($('.books_table').attr('data-table-name'))); // Заполняем таблицу данными из функции tableRender для таблицы "Books"
 
+    $('#AddForm').submit(function (event) {
+        event.preventDefault();
+        let currenTable = $(this).attr('data-table-name');
+
+        // Отправляем форму на сервер через AJAX-запрос при отправке формы
+        $.ajax({
+            url: '../php/' + currenTable.toLowerCase() + '/add.php', // URL для отправки данных
+            method: 'POST', // HTTP-метод (POST)
+            data: $(this).serialize(), // Данные из формы, сериализованные в строку
+            dataType: 'json', // Ожидаемый тип данных в ответе (JSON)
+            success: function (response) {
+                // Обработка успешного ответа от сервера
+                if (response.status === 'success') {
+                    // Если статус "success", скрываем модальное окно добавления и отображаем модальное окно успешной операции
+                    $('#addNewElement').modal('hide');
+                    $('#getSuccesModal').modal('show');
+                    $('.books_table').html(tableRender(currenTable)); // Обновляем таблицу
+                } else {
+                    // В противном случае, скрываем модальное окно добавления и отображаем модальное окно ошибки
+                    $('#addNewElement').modal('hide');
+                    $('#getDangeresModal').modal('show');
+                }
+            },
+            error: function () {
+                // Обработка ошибки AJAX-запроса
+                // Скрываем модальное окно добавления и отображаем модальное окно ошибки
+                $('#addNewElement').modal('hide');
+                $('#getDangeresModal').modal('show');
+            }
+        });
+    });
     $('.books_table').on('click','.delete',function (event) {
 
         let currenTable = $('.books_table').attr('data-table-name');
@@ -16,7 +47,7 @@ $(document).ready(function () {
                 // Обработка успешного ответа от сервера
                 if (response.status === 'success') {
                     // Если статус "success", скрываем модальное окно добавления и отображаем модальное окно успешной операции
-                    $('.books_table').html(tableRender('Books')); // Обновляем таблицу
+                    $('.books_table').html(tableRender(currenTable)); // Обновляем таблицу
                 } else {
                     // В противном случае, скрываем модальное окно добавления и отображаем модальное окно ошибки
                     alert(response.message)
@@ -43,79 +74,6 @@ $(document).ready(function () {
         $('#EditElement button[type="submit"]').attr('data-element-id', currenElement)
         $('#EditElement').modal('show')
     })
-    $('#AddForm').submit(function (event) {
-        event.preventDefault();
-        let currenTable = $(this).attr('data-table-name');
-
-        // Добавляем проверки на вводимые данные
-        var inputs = $(this).find("input");
-        var valid = true;
-
-        inputs.each(function() {
-            var input = $(this);
-            var inputValue = input.val().trim();
-
-            if (inputValue === "") {
-                alert("Пожалуйста, заполните все поля.");
-                valid = false;
-                return false; // Прерываем выполнение цикла
-            }
-
-            if (input.hasClass("text") && inputValue.length > 300) {
-                alert("Поле с классом 'text' не должно содержать более 300 символов.");
-                valid = false;
-                return false;
-            }
-
-            if (input.hasClass("year")) {
-                var yearValue = parseInt(inputValue);
-                if (isNaN(yearValue) || inputValue.length > 4) {
-                    alert("Поле с классом 'year' должно содержать число до 4 знаков.");
-                    valid = false;
-                    return false;
-                }
-                input.val(yearValue); // Округляем до целого числа
-            }
-
-            if (input.hasClass("number")) {
-                var numberValue = parseFloat(inputValue.replace(",", ".")); // Заменяет запятую на точку и парсит число
-
-                if (isNaN(numberValue) || inputValue.length > 5 || numberValue < 0 || numberValue > 10000) {
-                    alert("Поле с классом 'number' должно содержать положительное число до 10000.");
-                    valid = false;
-                    return false;
-                }
-                input.val(Math.round(numberValue)); // Округляем до целого числа
-            }
-        });
-
-        if (!valid) {
-            return;
-        }
-
-        // Остальной код для отправки данных на сервер через AJAX-запрос
-        $.ajax({
-            url: '../php/' + currenTable.toLowerCase() + '/add.php',
-            method: 'POST',
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function (response) {
-                if (response.status === 'success') {
-                    $('#addNewElement').modal('hide');
-                    $('#getSuccesModal').modal('show');
-                    $('.books_table').html(tableRender(currenTable));
-                } else {
-                    $('#addNewElement').modal('hide');
-                    $('#getDangeresModal').modal('show');
-                }
-            },
-            error: function () {
-                $('#addNewElement').modal('hide');
-                $('#getDangeresModal').modal('show');
-            }
-        });
-    });
-
     $('#EditForm').submit(function (event) {
         event.preventDefault();
 
@@ -125,51 +83,7 @@ $(document).ready(function () {
         $("#EditForm :input").each(function() {
             formData[this.name] = $(this).val();
         });
-        // Добавляем проверки на вводимые данные
-        var inputs = $(this).find("input");
-        var valid = true;
 
-        inputs.each(function() {
-            var input = $(this);
-            var inputValue = input.val().trim();
-
-            if (inputValue === "") {
-                alert("Пожалуйста, заполните все поля.");
-                valid = false;
-                return false; // Прерываем выполнение цикла
-            }
-
-            if (input.hasClass("text") && inputValue.length > 300) {
-                alert("Поле с классом 'text' не должно содержать более 300 символов.");
-                valid = false;
-                return false;
-            }
-
-            if (input.hasClass("year")) {
-                var yearValue = parseInt(inputValue);
-                if (isNaN(yearValue) || inputValue.length > 4) {
-                    alert("Поле с классом 'year' должно содержать число до 4 знаков.");
-                    valid = false;
-                    return false;
-                }
-                input.val(yearValue); // Округляем до целого числа
-            }
-
-            if (input.hasClass("number")) {
-                var numberValue = parseFloat(inputValue.replace(",", ".")); // Заменяет запятую на точку и парсит число
-
-                if (isNaN(numberValue) || inputValue.length > 5 || numberValue < 0 || numberValue > 10000) {
-                    alert("Поле с классом 'number' должно содержать положительное число до 10000.");
-                    valid = false;
-                    return false;
-                }
-                input.val(Math.round(numberValue)); // Округляем до целого числа
-            }
-        });
-
-        if (!valid) {
-            return;
-        }
         // Отправляем форму на сервер через AJAX-запрос при отправке формы
         $.ajax({
             url: '../php/' + currenTable.toLowerCase() + '/edit.php', // URL для отправки данных
@@ -201,7 +115,6 @@ $(document).ready(function () {
             }
         });
     });
-
 });
 
 function tableRender(currentTable) {
