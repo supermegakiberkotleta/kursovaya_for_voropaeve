@@ -145,7 +145,7 @@
                             <label for="addCountInput">Количество</label>
                             <input type="text" class="form-control number" id="editCountInput" name="editCountInput" placeholder="Введите количество книг">
                         </div>
-                        <div class="error-message">
+                        <div class="error-message" style="color: red">
 
                         </div>
                     </div>

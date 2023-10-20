@@ -1584,3 +1584,6 @@ div.dt-button-info h2 {
   padding: 15px;
 }
 /*# sourceMappingURL=theme.css.map */
+.error-message{
+  color: red;
+}
