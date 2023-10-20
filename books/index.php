@@ -64,8 +64,11 @@
                             <input type="text" class="form-control year" id="addPublicationYearInput" name="addPublicationYearInput" placeholder="Введите год публикации">
                         </div>
                         <div class="form-group">
-                            <label for="addCountInput number">Количество</label>
-                            <input type="text" class="form-control" id="addCountInput" name="addCountInput" placeholder="Введите количество книг">
+                            <label for="addCountInput">Количество</label>
+                            <input type="text" class="form-control number" id="addCountInput" name="addCountInput" placeholder="Введите количество книг">
+                        </div>
+                        <div class="error-message" style="color: red">
+
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -124,23 +127,26 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="addNameInput">Название книги</label>
-                            <input type="text" class="form-control" id="editNameInput" name="editNameInput" placeholder="Введите название книги">
+                            <input type="text" class="form-control text" id="editNameInput" name="editNameInput" placeholder="Введите название книги">
                         </div>
                         <div class="form-group">
                             <label for="addAuthorInput">Автор</label>
-                            <input type="text" class="form-control" id="editAuthorInput"  name="editAuthorInput" placeholder="Введите автора книги">
+                            <input type="text" class="form-control text" id="editAuthorInput"  name="editAuthorInput" placeholder="Введите автора книги">
                         </div>
                         <div class="form-group">
                             <label for="addGenreInput">Жанр</label>
-                            <input type="text" class="form-control" id="editGenreInput" name="editGenreInput" placeholder="Введите жанр книги">
+                            <input type="text" class="form-control text" id="editGenreInput" name="editGenreInput" placeholder="Введите жанр книги">
                         </div>
                         <div class="form-group">
                             <label for="addPublicationYearInput">Год публикации</label>
-                            <input type="text" class="form-control" id="editPublicationYearInput" name="editPublicationYearInput" placeholder="Введите год публикации">
+                            <input type="text" class="form-control year" id="editPublicationYearInput" name="editPublicationYearInput" placeholder="Введите год публикации">
                         </div>
                         <div class="form-group">
                             <label for="addCountInput">Количество</label>
-                            <input type="text" class="form-control" id="editCountInput" name="editCountInput" placeholder="Введите количество книг">
+                            <input type="text" class="form-control number" id="editCountInput" name="editCountInput" placeholder="Введите количество книг">
+                        </div>
+                        <div class="error-message">
+
                         </div>
                     </div>
                     <div class="modal-footer">

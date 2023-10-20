@@ -4,34 +4,84 @@ $(document).ready(function () {
 
     $('#AddForm').submit(function (event) {
         event.preventDefault();
-        let currenTable = $(this).attr('data-table-name');
 
-        // Отправляем форму на сервер через AJAX-запрос при отправке формы
-        $.ajax({
-            url: '../php/' + currenTable.toLowerCase() + '/add.php', // URL для отправки данных
-            method: 'POST', // HTTP-метод (POST)
-            data: $(this).serialize(), // Данные из формы, сериализованные в строку
-            dataType: 'json', // Ожидаемый тип данных в ответе (JSON)
-            success: function (response) {
-                // Обработка успешного ответа от сервера
-                if (response.status === 'success') {
-                    // Если статус "success", скрываем модальное окно добавления и отображаем модальное окно успешной операции
-                    $('#addNewElement').modal('hide');
-                    $('#getSuccesModal').modal('show');
-                    $('.books_table').html(tableRender(currenTable)); // Обновляем таблицу
-                } else {
-                    // В противном случае, скрываем модальное окно добавления и отображаем модальное окно ошибки
+        let currenTable = $(this).attr('data-table-name');
+        let form = $(this)
+        var inputs = $(this).find("input");
+        var valid = true;
+        var errorMessage = form.find($('.error-message'));
+
+        inputs.each(function() {
+            var input = $(this);
+            var inputValue = input.val().trim();
+            var label = input.prev().text();
+
+
+            if (inputValue === "") {
+
+                errorMessage.text('Заполните поле: ' + '"' + label + '"')
+                valid = false;
+                return false; // Прерываем выполнение цикла
+            }
+
+            if (input.hasClass("text") && inputValue.length > 300) {
+                errorMessage.text('Поле ' + '"' + label + '"' + '  не должно содержать более 300 символов.');
+                valid = false;
+                return false;
+            }
+
+            if (input.hasClass("year")) {
+                var yearValue = parseInt(inputValue);
+                if (isNaN(yearValue) || inputValue.length > 4) {
+                    errorMessage.text('Поле ' + '"' + label + '"' + ' должно содержать только число до 4 знаков.');
+                    valid = false;
+                    return false;
+                }
+                input.val(yearValue); // Округляем до целого числа
+            }
+
+            if (input.hasClass("number")) {
+                var numberValue = parseFloat(inputValue.replace(",", ".")); // Заменяет запятую на точку и парсит число
+
+                if (isNaN(numberValue) || inputValue.length > 5 || numberValue < 0 || numberValue > 10000) {
+                    errorMessage.text('Поле ' + '"' + label + '"' + ' должно содержать только положительное число');
+                    valid = false;
+                    return false;
+                }
+                input.val(Math.round(numberValue)); // Округляем до целого числа
+            }
+        });
+
+        if (valid) {
+            errorMessage.text('')
+            // Отправляем форму на сервер через AJAX-запрос при отправке формы
+            $.ajax({
+                url: '../php/' + currenTable.toLowerCase() + '/add.php', // URL для отправки данных
+                method: 'POST', // HTTP-метод (POST)
+                data: $(this).serialize(), // Данные из формы, сериализованные в строку
+                dataType: 'json', // Ожидаемый тип данных в ответе (JSON)
+                success: function (response) {
+                    // Обработка успешного ответа от сервера
+                    if (response.status === 'success') {
+                        // Если статус "success", скрываем модальное окно добавления и отображаем модальное окно успешной операции
+                        $('#addNewElement').modal('hide');
+                        $('#getSuccesModal').modal('show');
+                        $('.books_table').html(tableRender(currenTable)); // Обновляем таблицу
+                    } else {
+                        // В противном случае, скрываем модальное окно добавления и отображаем модальное окно ошибки
+                        $('#addNewElement').modal('hide');
+                        $('#getDangeresModal').modal('show');
+                    }
+                },
+                error: function () {
+                    // Обработка ошибки AJAX-запроса
+                    // Скрываем модальное окно добавления и отображаем модальное окно ошибки
                     $('#addNewElement').modal('hide');
                     $('#getDangeresModal').modal('show');
                 }
-            },
-            error: function () {
-                // Обработка ошибки AJAX-запроса
-                // Скрываем модальное окно добавления и отображаем модальное окно ошибки
-                $('#addNewElement').modal('hide');
-                $('#getDangeresModal').modal('show');
-            }
-        });
+            });
+        }
+
     });
     $('.books_table').on('click','.delete',function (event) {
 
@@ -80,40 +130,82 @@ $(document).ready(function () {
         let currenTable = $(this).attr('data-table-name');
         let currenElement = $(this).find($('button[type="submit"]')).attr('data-element-id')
         let formData = {};
-        $("#EditForm :input").each(function() {
-            formData[this.name] = $(this).val();
-        });
+        let form = $(this)
+        var inputs = $(this).find("input");
+        var valid = true;
+        var errorMessage = form.find($('.error-message'));
 
-        // Отправляем форму на сервер через AJAX-запрос при отправке формы
-        $.ajax({
-            url: '../php/' + currenTable.toLowerCase() + '/edit.php', // URL для отправки данных
-            method: 'POST', // HTTP-метод (POST)
-            data: {
-                input:JSON.stringify(formData),
-                elem_id: currenElement
-            },
-            dataType: 'json', // Ожидаемый тип данных в ответе (JSON)
-            success: function (response) {
-                // Обработка успешного ответа от сервера
-                if (response.status === 'success') {
-                    console.log(response.message)
-                    // Если статус "success", скрываем модальное окно добавления и отображаем модальное окно успешной операции
-                    $('#EditElement').modal('hide');
-                    //$('#getSuccesModal').modal('show');
-                    $('.books_table').html(tableRender(currenTable)); // Обновляем таблицу
-                } else {
-                    // В противном случае, скрываем модальное окно добавления и отображаем модальное окно ошибки
-                    //$('#addNewElement').modal('hide');
-                    //$('#getDangeresModal').modal('show');
+        inputs.each(function() {
+            var input = $(this);
+            var inputValue = input.val().trim();
+            var label = input.prev().text();
+
+
+            if (inputValue === "") {
+
+                errorMessage.text('Заполните поле: ' + '"' + label + '"')
+                valid = false;
+                return false; // Прерываем выполнение цикла
+            }
+
+            if (input.hasClass("text") && inputValue.length > 300) {
+                errorMessage.text('Поле ' + '"' + label + '"' + '  не должно содержать более 300 символов.');
+                valid = false;
+                return false;
+            }
+
+            if (input.hasClass("year")) {
+                var yearValue = parseInt(inputValue);
+                if (isNaN(yearValue) || inputValue.length > 4) {
+                    errorMessage.text('Поле ' + '"' + label + '"' + ' должно содержать только число до 4 знаков.');
+                    valid = false;
+                    return false;
                 }
-            },
-            error: function () {
-                // Обработка ошибки AJAX-запроса
-                // Скрываем модальное окно добавления и отображаем модальное окно ошибки
-                //$('#addNewElement').modal('hide');
-                //$('#getDangeresModal').modal('show');
+                input.val(yearValue); // Округляем до целого числа
+            }
+
+            if (input.hasClass("number")) {
+                var numberValue = parseFloat(inputValue.replace(",", ".")); // Заменяет запятую на точку и парсит число
+
+                if (isNaN(numberValue) || inputValue.length > 5 || numberValue < 0 || numberValue > 10000) {
+                    errorMessage.text('Поле ' + '"' + label + '"' + ' должно содержать только положительное число');
+                    valid = false;
+                    return false;
+                }
+                input.val(Math.round(numberValue)); // Округляем до целого числа
             }
         });
+        if(valid){
+            $("#EditForm :input").each(function() {
+                formData[this.name] = $(this).val();
+            });
+
+            // Отправляем форму на сервер через AJAX-запрос при отправке формы
+            $.ajax({
+                url: '../php/' + currenTable.toLowerCase() + '/edit.php', // URL для отправки данных
+                method: 'POST', // HTTP-метод (POST)
+                data: {
+                    input:JSON.stringify(formData),
+                    elem_id: currenElement
+                },
+                dataType: 'json', // Ожидаемый тип данных в ответе (JSON)
+                success: function (response) {
+                    // Обработка успешного ответа от сервера
+                    if (response.status === 'success') {
+                        console.log(response.message)
+                        // Если статус "success", скрываем модальное окно добавления и отображаем модальное окно успешной операции
+                        $('#EditElement').modal('hide');
+                        //$('#getSuccesModal').modal('show');
+                        $('.books_table').html(tableRender(currenTable)); // Обновляем таблицу
+                    } else {
+                        alert('Не удалось изменить элемент в базе')
+                    }
+                },
+                error: function () {
+                    alert('Не удалось отправить изменения')
+                }
+            });
+        }
     });
 });
 
