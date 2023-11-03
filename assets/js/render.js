@@ -7,14 +7,14 @@ $(document).ready(function () {
 
         let currenTable = $(this).attr('data-table-name');
         let form = $(this)
-        var inputs = $(this).find("input");
-        var valid = true;
-        var errorMessage = form.find($('.error-message'));
+        let inputs = $(this).find("input");
+        let valid = true;
+        let errorMessage = form.find($('.error-message'));
 
         inputs.each(function() {
-            var input = $(this);
-            var inputValue = input.val().trim();
-            var label = input.prev().text();
+            let input = $(this);
+            let inputValue = input.val().trim();
+            let label = input.prev().text();
 
 
             if (inputValue === "") {
@@ -24,14 +24,14 @@ $(document).ready(function () {
                 return false; // Прерываем выполнение цикла
             }
 
-            if (input.hasClass("text") && inputValue.length > 300) {
-                errorMessage.text('Поле ' + '"' + label + '"' + '  не должно содержать более 300 символов.');
+            if (input.hasClass("text") && inputValue.length > 50) {
+                errorMessage.text('Поле ' + '"' + label + '"' + ' не должно содержать более 50 символов.');
                 valid = false;
                 return false;
             }
 
             if (input.hasClass("year")) {
-                var yearValue = parseInt(inputValue);
+                let yearValue = parseInt(inputValue);
                 if (isNaN(yearValue) || inputValue.length > 4) {
                     errorMessage.text('Поле ' + '"' + label + '"' + ' должно содержать только число до 4 знаков.');
                     valid = false;
@@ -41,7 +41,7 @@ $(document).ready(function () {
             }
 
             if (input.hasClass("number")) {
-                var numberValue = parseFloat(inputValue.replace(",", ".")); // Заменяет запятую на точку и парсит число
+                let numberValue = parseFloat(inputValue.replace(",", ".")); // Заменяет запятую на точку и парсит число
 
                 if (isNaN(numberValue) || inputValue.length > 5 || numberValue < 0 || numberValue > 10000) {
                     errorMessage.text('Поле ' + '"' + label + '"' + ' должно содержать только положительное число');
@@ -131,14 +131,14 @@ $(document).ready(function () {
         let currenElement = $(this).find($('button[type="submit"]')).attr('data-element-id')
         let formData = {};
         let form = $(this)
-        var inputs = $(this).find("input");
-        var valid = true;
-        var errorMessage = form.find($('.error-message'));
+        let inputs = $(this).find("input");
+        let valid = true;
+        let errorMessage = form.find($('.error-message'));
 
         inputs.each(function() {
-            var input = $(this);
-            var inputValue = input.val().trim();
-            var label = input.prev().text();
+            let input = $(this);
+            let inputValue = input.val().trim();
+            let label = input.prev().text();
 
 
             if (inputValue === "") {
@@ -148,14 +148,14 @@ $(document).ready(function () {
                 return false; // Прерываем выполнение цикла
             }
 
-            if (input.hasClass("text") && inputValue.length > 300) {
-                errorMessage.text('Поле ' + '"' + label + '"' + '  не должно содержать более 300 символов.');
+            if (input.hasClass("text") && inputValue.length > 50) {
+                errorMessage.text('Поле ' + '"' + label + '"' + ' не должно содержать более 50 символов.');
                 valid = false;
                 return false;
             }
 
             if (input.hasClass("year")) {
-                var yearValue = parseInt(inputValue);
+                let yearValue = parseInt(inputValue);
                 if (isNaN(yearValue) || inputValue.length > 4) {
                     errorMessage.text('Поле ' + '"' + label + '"' + ' должно содержать только число до 4 знаков.');
                     valid = false;
@@ -165,7 +165,7 @@ $(document).ready(function () {
             }
 
             if (input.hasClass("number")) {
-                var numberValue = parseFloat(inputValue.replace(",", ".")); // Заменяет запятую на точку и парсит число
+                let numberValue = parseFloat(inputValue.replace(",", ".")); // Заменяет запятую на точку и парсит число
 
                 if (isNaN(numberValue) || inputValue.length > 5 || numberValue < 0 || numberValue > 10000) {
                     errorMessage.text('Поле ' + '"' + label + '"' + ' должно содержать только положительное число');

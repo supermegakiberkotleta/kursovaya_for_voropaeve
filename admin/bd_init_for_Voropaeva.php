@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "library_bd";
+$dbname = "sotbit_bd";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
