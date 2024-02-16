@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$database = "library_bd";
+$database = "sotbit_bd";
 
 // Функция для подключения к базе данных
 function connectToDatabase() {

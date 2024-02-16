@@ -52,6 +52,7 @@
                         <ul class="sub-menu" aria-expanded="false">
                             <li><a href="/books/">Книги</a></li>
                             <li><a href="/students/">Ученики</a></li>
+                            <li><a href="/bookhistory/">Выдача книг</a></li>
                         </ul>
                     </li>
 

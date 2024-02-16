@@ -71,6 +71,7 @@ $(document).ready(function () {
                         // В противном случае, скрываем модальное окно добавления и отображаем модальное окно ошибки
                         $('#addNewElement').modal('hide');
                         $('#getDangeresModal').modal('show');
+                        console.log(response.message)
                     }
                 },
                 error: function () {
