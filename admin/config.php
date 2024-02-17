@@ -2,7 +2,7 @@
 // Настройки подключения к базе данных
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "root";
 $database = "sotbit_bd";
 
 // Функция для подключения к базе данных

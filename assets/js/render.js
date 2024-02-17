@@ -72,6 +72,7 @@ $(document).ready(function () {
                         $('#addNewElement').modal('hide');
                         $('#getDangeresModal').modal('show');
                         console.log(response.message)
+                        $('#getDangeresModal .modal-body .text-center').text(response.message)
                     }
                 },
                 error: function () {
