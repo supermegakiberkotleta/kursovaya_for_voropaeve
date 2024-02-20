@@ -53,6 +53,7 @@
                             <li><a href="/books/">Книги</a></li>
                             <li><a href="/students/">Ученики</a></li>
                             <li><a href="/bookhistory/">Выдача книг</a></li>
+                            <li><a href="/bookloans/">История выдачи</a></li>
                         </ul>
                     </li>
 
