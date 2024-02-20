@@ -112,6 +112,33 @@ $(document).ready(function () {
             }
         });
     });
+    $('.books_table').on('click','.pass',function (event) {
+
+        let currenTable = $('.books_table').attr('data-table-name');
+
+        // Отправляем форму на сервер через AJAX-запрос при отправке формы
+        $.ajax({
+            url: '../php/' + currenTable.toLowerCase() + '/pass.php', // URL для отправки данных
+            method: 'POST', // HTTP-метод (POST)
+            data: {elemId: $(this).attr('data-element-id'), currenTable: currenTable}, // Данные из формы, сериализованные в строку
+            dataType: 'json', // Ожидаемый тип данных в ответе (JSON)
+            success: function (response) {
+                // Обработка успешного ответа от сервера
+                if (response.status === 'success') {
+                    // Если статус "success", скрываем модальное окно добавления и отображаем модальное окно успешной операции
+                    $('.books_table').html(tableRender(currenTable)); // Обновляем таблицу
+                } else {
+                    // В противном случае, скрываем модальное окно добавления и отображаем модальное окно ошибки
+                    alert(response.message)
+                }
+            },
+            error: function () {
+                // Обработка ошибки AJAX-запроса
+                // Скрываем модальное окно добавления и отображаем модальное окно ошибки
+                alert('Не удалось отправить запрос')
+            }
+        });
+    });
     $('.books_table').on('click','.edit',function (event) {
 
         let currenElement = $(this).attr('data-element-id');

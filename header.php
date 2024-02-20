@@ -1,4 +1,6 @@
+
 <?php require_once  $_SERVER['DOCUMENT_ROOT'] . '/functions.php';?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,20 +45,10 @@
                 <ul class="metismenu list-unstyled" id="side-menu">
                     <li class="menu-title">Меню</li>
 
-                    <li>
-                        <a href="/" class="waves-effect"><i class='bx bx-home-smile'></i><span>Консоль</span></a>
-                    </li>
-
-                    <li>
-                        <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="bx bx-table"></i><span>Таблицы</span></a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="/books/">Книги</a></li>
-                            <li><a href="/students/">Ученики</a></li>
-                            <li><a href="/bookhistory/">Выдача книг</a></li>
-                            <li><a href="/bookloans/">История выдачи</a></li>
-                        </ul>
-                    </li>
-
+                    <li><a href="/books/" class="waves-effect">Книги</a></li>
+                    <li><a href="/students/" class="waves-effect">Ученики</a></li>
+                    <li><a href="/bookhistory/" class="waves-effect">Выдача книг</a></li>
+                    <li><a href="/bookloans/" class="waves-effect">История выдачи</a></li>
 
                 </ul>
             </div>

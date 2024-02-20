@@ -11,7 +11,7 @@ foreach ($data as $items) {
     $table .= '<td>' . $items['student_name'] . '</td>';
     $table .= '<td>' . $items['action_date'] . '</td>';
     $table .= '<td>';
-    $table .= '<button class="btn btn-success btn-sm success" data-element-id="' . $items['student_id'] . '">Сдать книгу</button>';
+    $table .= '<button class="btn btn-success btn-sm success pass" data-element-id="' . $items['history_id'] . '">Сдать книгу</button>';
     $table .= '<button class="btn btn-danger btn-sm delete" data-element-id="' . $items['history_id'] . '">Удалить</button>';
     $table .= '</td>';
     $table .= '</tr>';
