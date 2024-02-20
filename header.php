@@ -76,14 +76,30 @@
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="rounded-circle header-profile-user" src="../assets/images/users/avatar-1.jpg"
                              alt="Header Avatar">
-                        <span class="d-none d-sm-inline-block ml-1">admin</span>
+                        <span class="d-none d-sm-inline-block ml-1"><?=$_SESSION["username"]?></span>
                         <i class="mdi mdi-chevron-down d-none d-sm-inline-block"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item d-flex align-items-center justify-content-between"
-                           href="javascript:void(0)">
+                           href="#" onclick="logout()">
                             <span>Выйти</span>
                         </a>
+                        <script>
+                        function logout() {
+                            // Отправляем AJAX-запрос на сервер для удаления сессии
+                            let rootPath = window.location.protocol + "//" + window.location.host + "/"; // Получение корневого пути сайта
+                            let logoutUrl = rootPath  + '/logout.php'; // Формирование URL для запроса
+                            var xhr = new XMLHttpRequest();
+                            xhr.open("GET", logoutUrl, true);
+                            xhr.onload = function () {
+                                if (xhr.readyState == 4 && xhr.status == 200) {
+                                    // После успешного удаления сессии перенаправляем пользователя на страницу входа
+                                    window.location.href = rootPath + "login.php";
+                                }
+                            };
+                            xhr.send();
+                        }
+                        </script>
                     </div>
                 </div>
 
