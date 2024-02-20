@@ -44,11 +44,11 @@
                 <!-- Left Menu Start -->
                 <ul class="metismenu list-unstyled" id="side-menu">
                     <li class="menu-title">Меню</li>
-
-                    <li><a href="/books/" class="waves-effect">Книги</a></li>
-                    <li><a href="/students/" class="waves-effect">Ученики</a></li>
-                    <li><a href="/bookhistory/" class="waves-effect">Выдача книг</a></li>
-                    <li><a href="/bookloans/" class="waves-effect">История выдачи</a></li>
+                    <li><a href="/" class="waves-effect"><i class="bx bx-home"></i> Главная</a></li>
+                    <li><a href="/books/" class="waves-effect"><i class="bx bx-book-bookmark"></i> Книги</a></li>
+                    <li><a href="/students/" class="waves-effect"><i class="bx bx-user"></i> Ученики</a></li>
+                    <li><a href="/bookhistory/" class="waves-effect"><i class="bx bx-duplicate"></i> Выдача книг</a></li>
+                    <li><a href="/bookloans/" class="waves-effect"><i class="bx bx-task"></i> История выдачи</a></li>
 
                 </ul>
             </div>
